@@ -71,6 +71,12 @@
     padding: 0.75rem 1.25rem;
   }
   
+  .app-card .release-date {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
   /* Footer Styles */
   footer {
     background-color: #1a1a1a;
@@ -96,7 +102,19 @@
       <img src="https://st2.depositphotos.com/16030310/43129/v/1600/depositphotos_431296524-stock-illustration-letter-logo-colorful-circle-letter.jpg" alt="TV en Vivo icon">
       <div class="app-card-content">
         <h3>TV en Vivo</h3>
+        <p class="release-date">Publicada: 16 de agosto 2024</p>
         <p>Disfruta de una amplia selección de canales de televisión en vivo en tu TV Box.</p>
+        <a href="https://drive.google.com/uc?export=download&id=
+1-Nm3ZAG1CUuHmDq5jVF_i4upBi1DoD9e"><button>Descargar e Instalar</button></a>
+      </div>
+    </div>
+    
+    <div class="app-card">
+      <img src="https://image.winudf.com/v2/image1/Y29tLnBlbGlzcGxheXR2LnBlbGljdWxhc2dyYXRpc19zY3JlZW5fMF8xNjYxNjA2ODQxXzA5OA/screen-0.webp?fakeurl=1&type=.webp" alt="Películas y Series icon">
+      <div class="app-card-content">
+        <h3>Películas y Series</h3>
+        <p class="release-date">Publicada: 15 de agosto 2024</p>
+        <p>Disfruta de una amplia biblioteca de películas y series en tu TV Box.</p>
         <a href="https://drive.google.com/uc?export=download&id=
 1-Nm3ZAG1CUuHmDq5jVF_i4upBi1DoD9e"><button>Descargar e Instalar</button></a>
       </div>
@@ -106,5 +124,38 @@
   <footer>
     <p>&copy; 2024 TV BOX PREMIUM STORE</p>
   </footer>
+  
+  <script>
+    // Detect Android TV version
+    function getAndroidTVVersion() {
+      const userAgent = navigator.userAgent;
+      const androidTVVersionMatch = userAgent.match(/Android (\d+\.\d+)/);
+      if (androidTVVersionMatch) {
+        return parseFloat(androidTVVersionMatch[1]);
+      }
+      return null;
+    }
+    
+    // Check if Android TV version is compatible
+    function isAndroidTVVersionCompatible() {
+      const version = getAndroidTVVersion();
+      return version !== null && version >= 9 && version <= 12;
+    }
+    
+    // Automatically download and install the Android TV package
+    function downloadAndInstallAndroidTVPackage() {
+      if (isAndroidTVVersionCompatible()) {
+        window.location.href = "https://u.pcloud.link/publink/show?code=XZuALd0Z29mXfBJeAVJTCB6Y9B1iCXgWSVCX";
+      } else {
+        alert("Your Android TV version is not compatible with the app. Please update your Android TV to version 9 or later.");
+      }
+    }
+    
+    // Add event listener to the download buttons
+    const downloadButtons = document.querySelectorAll('.app-card button');
+    downloadButtons.forEach(button => {
+      button.addEventListener('click', downloadAndInstallAndroidTVPackage);
+    });
+  </script>
 </body>
 </html>
