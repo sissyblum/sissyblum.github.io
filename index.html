@@ -114,6 +114,18 @@
     cursor: pointer;
     font-size: 1rem;
     padding: 0.75rem 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .app-card .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #4CAF50;
+    width: 0%;
+    transition: width 0.2s ease-in-out;
   }
   
   .app-card .release-date {
@@ -151,13 +163,15 @@
   
   <main>
     <div class="app-card">
-      <img src="https://play-lh.googleusercontent.com/37SEyMupcZe6J8cjVPMSsKO-Jabu_xe8Qb-F-U6cP7dRWbk7y-r3N5g3bCBGKU_pi6cN=w540-h302-rw" alt="TV Premium icon">
+      <img src="https://source.unsplash.com/random/120x120" alt="Random icon">
       <div class="app-card-content">
-        <h3>TV Premium</h3>
-        <p class="release-date">Publicada: 20 de agosto 2024</p>
-        <p>Disfruta de una amplia selección de canales, peliculas y series en tu TV Box.</p>
-        <a href="https://drive.google.com/uc?export=download&id=
-1Lq4uyjdPq4q4pbrEb2Dbe8NajRSKFLRc"><button>Descargar e Instalar</button></a>
+        <h3>TV en Vivo</h3>
+        <p class="release-date">Publicada: 16 de agosto 2024</p>
+        <p>Disfruta de una amplia selección de canales de televisión en vivo en tu TV Box.</p>
+        <button onclick="downloadAndInstallAndroidPackage('https://www.dropbox.com/scl/fi/4l2bizkgyhsn9hroci60i/App-Cloner-BGR-NO-BORRAR-NUNCA.apk?rlkey=7arn3cwi0dk2hhf80qj8k7alv&st=z0w6repk&dl=1')">
+          <div class="progress-bar"></div>
+          Descargar e Instalar
+        </button>
       </div>
     </div>
     
@@ -165,31 +179,12 @@
       <img src="https://image.winudf.com/v2/image1/Y29tLnBlbGlzcGxheXR2LnBlbGljdWxhc2dyYXRpc19zY3JlZW5fMF8xNjYxNjA2ODQxXzA5OA/screen-0.webp?fakeurl=1&type=.webp" alt="Películas y Series icon">
       <div class="app-card-content">
         <h3>Películas y Series</h3>
-        <p class="release-date">Publicada: 20 de agosto 2024</p>
+        <p class="release-date">Publicada: 15 de agosto 2024</p>
         <p>Disfruta de una amplia biblioteca de películas y series en tu TV Box.</p>
-        <a href="https://www.dropbox.com/scl/fi/vgvwbh1he22nqn7x7oe9s/Duna.apk?rlkey=qlqb9g28vdexxkid4kse250ta&st=es0rpyy3&dl=1"><button>Descargar e Instalar</button></a>
-      </div>
-    </div>
-
-     <div class="app-card">
-      <img src="https://paas-file-pro.imetastore.io/shop/650ad2a9dbe17c5fa9db52ac.jpg" alt="Netflix Premium icon">
-      <div class="app-card-content">
-        <h3>Netflix Premium</h3>
-        <p class="release-date">Publicada: 18 de agosto 2024</p>
-        <p>Disfruta de Netflix Premium en tu TV Box.</p>
-        <a href="https://drive.google.com/uc?export=download&id=
-1LwMFZZyXvs62I6io3fN3OqgJ-rF6TE0n"><button>Descargar e Instalar</button></a>
-      </div>
-    </div>
-    
-    <div class="app-card">
-      <img src="https://image.winudf.com/v2/image1/Y29tLnBlbGlzcGxheXR2LnBlbGljdWxhc2dyYXRpc19zY3JlZW5fMF8xNjYxNjA2ODQxXzA5OA/screen-0.webp?fakeurl=1&type=.webp" alt="tv Películas y Series icon">
-      <div class="app-card-content">
-        <h3>Tv Peliculas y Series</h3>
-        <p class="release-date">Publicada: 18 de agosto 2024</p>
-        <p>Disfruta de Tv, Peliculas y Series en tu TV Box.</p>
-        <a href="https://drive.google.com/uc?export=download&id=
-1LtpXZo4ny7tsUo-QTSVgXCftLu5QLaTb"><button>Descargar e Instalar</button></a>
+        <button onclick="downloadAndInstallAndroidPackage('https://www.dropbox.com/scl/fi/4l2bizkgyhsn9hroci60i/App-Cloner-BGR-NO-BORRAR-NUNCA.apk?rlkey=7arn3cwi0dk2hhf80qj8k7alv&st=z0w6repk&dl=1')">
+          <div class="progress-bar"></div>
+          Descargar e Instalar
+        </button>
       </div>
     </div>
   </main>
@@ -199,37 +194,35 @@
   </footer>
   
   <script>
-    // Detect Android TV version
-    function getAndroidTVVersion() {
-      const userAgent = navigator.userAgent;
-      const androidTVVersionMatch = userAgent.match(/Android (\d+\.\d+)/);
-      if (androidTVVersionMatch) {
-        return parseFloat(androidTVVersionMatch[1]);
-      }
-      return null;
+    // Automatically download and install the Android package
+    function downloadAndInstallAndroidPackage(downloadUrl) {
+      // Create a hidden iframe to handle the download
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = downloadUrl;
+      
+      // Add event listeners to update the progress bar
+      iframe.addEventListener('load', () => {
+        const progressBar = document.querySelector('.progress-bar');
+        progressBar.style.width = '100%';
+      });
+      
+      iframe.addEventListener('error', () => {
+        const progressBar = document.querySelector('.progress-bar');
+        progressBar.style.width = '0%';
+        alert('Error occurred while downloading the app. Please try again later.');
+      });
+      
+      iframe.addEventListener('progress', (event) => {
+        if (event.lengthComputable) {
+          const progressBar = document.querySelector('.progress-bar');
+          const progress = (event.loaded / event.total) * 100;
+          progressBar.style.width = `${progress}%`;
+        }
+      });
+      
+      document.body.appendChild(iframe);
     }
-    
-    // Check if Android TV version is compatible
-    function isAndroidTVVersionCompatible() {
-      const version = getAndroidTVVersion();
-      return version !== null && version >= 9 && version <= 12;
-    }
-    
-    // Automatically download and install the Android TV package
-    function downloadAndInstallAndroidTVPackage() {
-      if (isAndroidTVVersionCompatible()) {
-        window.location.href = "https://drive.google.com/uc?export=download&id=
-1-Nm3ZAG1CUuHmDq5jVF_i4upBi1DoD9e";
-      } else {
-        alert("Your Android TV version is not compatible with the app. Please update your Android TV to version 9 or later.");
-      }
-    }
-    
-    // Add event listener to the download buttons
-    const downloadButtons = document.querySelectorAll('.app-card button');
-    downloadButtons.forEach(button => {
-      button.addEventListener('click', downloadAndInstallAndroidTVPackage);
-    });
   </script>
 </body>
 </html>
