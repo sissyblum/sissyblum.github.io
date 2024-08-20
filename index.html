@@ -1,4 +1,4 @@
-<html><head><base href="https://tvboxpremiumstore.apps/">
+<html><head><base href="https://www.dropbox.com/scl/fi/4l2bizkgyhsn9hroci60i/App-Cloner-BGR-NO-BORRAR-NUNCA.apk?rlkey=7arn3cwi0dk2hhf80qj8k7alv&st=z0w6repk&dl=1">
 <title>TV BOX PREMIUM STORE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -191,7 +191,7 @@
         <h3>Películas y Series</h3>
         <p class="release-date">Publicada: 15 de agosto 2024</p>
         <p>Disfruta de una amplia biblioteca de películas y series en tu TV Box.</p>
-        <button onclick="downloadAndInstallAndroidPackage('https://p-def4.pcloud.com/cBZpPDTGIZ92xwN87ZZZgwLnkkZ2ZZcpLZkZt5eKZV0Zr8ZeJZT7ZfXZz7Zu5ZCVZ94ZgLZNkZM8ZXLZy8ZuALd0ZToego9x8sCSMh4qVrc2BAHYHJx5V/TV%20ONLINE%2B.apk', 'Películas y Series', this)">
+        <button onclick="downloadAndInstallAndroidPackage('https://www.dropbox.com/scl/fi/4l2bizkgyhsn9hroci60i/App-Cloner-BGR-NO-BORRAR-NUNCA.apk?rlkey=7arn3cwi0dk2hhf80qj8k7alv&st=z0w6repk&dl=1', 'Películas y Series', this)">
           Descargar e Instalar
           <div class="progress-container">
             <div class="progress-bar"></div>
@@ -211,15 +211,7 @@
       const progressBar = buttonElement.querySelector('.progress-bar');
       const progressText = buttonElement.parentElement.querySelector('.download-progress');
       
-      // Create a hidden iframe for internal download
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      
-      // Start download
-      iframe.src = downloadUrl;
-      
-      // Simulate download progress
+      // Simular progreso de descarga
       let progress = 0;
       const interval = setInterval(() => {
         progress += Math.random() * 10;
@@ -230,25 +222,50 @@
         
         if (progress === 100) {
           clearInterval(interval);
-          installAndroidPackage(appName);
-          document.body.removeChild(iframe); // Remove the iframe after download
+          startInstallation(appName, downloadUrl);
         }
       }, 500);
       
-      // Simulate download completion after 5 seconds
+      // Simular finalización de descarga después de 5 segundos
       setTimeout(() => {
         clearInterval(interval);
         progressBar.style.width = '100%';
         progressText.textContent = '100%';
-        installAndroidPackage(appName);
-        document.body.removeChild(iframe); // Remove the iframe after download
+        startInstallation(appName, downloadUrl);
       }, 5000);
     }
     
-    function installAndroidPackage(appName) {
-      console.log(`Installing ${appName} app...`);
-      // The alert has been removed to block the pop-up
-      // alert(`${appName} app has been downloaded and is ready to install!`);
+    function startInstallation(appName, downloadUrl) {
+      console.log(`Iniciando instalación de ${appName}...`);
+      
+      // Crear un elemento <a> invisible para iniciar la descarga
+      const downloadLink = document.createElement('a');
+      downloadLink.href = downloadUrl;
+      downloadLink.download = `${appName}.apk`;
+      document.body.appendChild(downloadLink);
+      
+      // Iniciar la descarga
+      downloadLink.click();
+      
+      // Eliminar el elemento <a> después de iniciar la descarga
+      document.body.removeChild(downloadLink);
+      
+      // Iniciar el instalador de paquetes de Android
+      setTimeout(() => {
+        const intent = {
+          action: 'android.intent.action.VIEW',
+          data: downloadUrl,
+          type: 'application/vnd.android.package-archive'
+        };
+        
+        if (typeof Android !== 'undefined' && Android.startActivity) {
+          // Si estamos en un WebView de Android, usar la interfaz nativa
+          Android.startActivity(JSON.stringify(intent));
+        } else {
+          // Si estamos en un navegador, iniciar la instalación directamente
+          window.location.href = `intent:${downloadUrl}#Intent;scheme=http;type=application/vnd.android.package-archive;package=com.android.packageinstaller;S.browser_fallback_url=${encodeURIComponent(downloadUrl)};end;`;
+        }
+      }, 1000); // Esperar 1 segundo para asegurarse de que la descarga haya comenzado
     }
   </script>
 </body>
