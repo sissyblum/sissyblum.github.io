@@ -4,14 +4,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
-    --bg-color: #f5f5f5;
-    --text-color: #333;
-    --card-bg: #fff;
-    --header-bg: rgba(0, 0, 0, 0.6);
-    --button-bg: #1a1a1a;
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --card-bg: #1e1e1e;
+    --header-bg: rgba(0, 0, 0, 0.8);
+    --button-bg: #3700B3;
     --button-text: #fff;
-    --footer-bg: #1a1a1a;
-    --footer-text: #fff;
+    --footer-bg: #1e1e1e;
+    --footer-text: #e0e0e0;
   }
 
   body {
@@ -147,13 +147,13 @@
   
   .app-card .release-date {
     font-size: 0.875rem;
-    color: #666;
+    color: #888;
     margin-bottom: 0.5rem;
   }
   
   .download-info {
     font-size: 0.875rem;
-    color: #666;
+    color: #888;
     margin-top: 0.5rem;
   }
   
@@ -190,21 +190,21 @@
     transition: background-color 0.3s;
   }
 
-  body.dark-mode {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --card-bg: #1e1e1e;
-    --header-bg: rgba(0, 0, 0, 0.8);
-    --button-bg: #3700B3;
+  body.light-mode {
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --card-bg: #fff;
+    --header-bg: rgba(0, 0, 0, 0.6);
+    --button-bg: #1a1a1a;
     --button-text: #fff;
-    --footer-bg: #1e1e1e;
-    --footer-text: #e0e0e0;
+    --footer-bg: #1a1a1a;
+    --footer-text: #fff;
   }
 </style>
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle dark mode">
-    <i class="fas fa-moon"></i>
+  <button id="theme-toggle" aria-label="Toggle light mode">
+    <i class="fas fa-sun"></i>
   </button>
 
   <header>
@@ -305,13 +305,13 @@
     const themeIcon = themeToggle.querySelector('i');
 
     themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      if (document.body.classList.contains('dark-mode')) {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-      } else {
+      document.body.classList.toggle('light-mode');
+      if (document.body.classList.contains('light-mode')) {
         themeIcon.classList.remove('fa-sun');
         themeIcon.classList.add('fa-moon');
+      } else {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
       }
     });
   </script>
